@@ -5,5 +5,5 @@
   %li{class: "group"} Boards
   - @boards.each do |board|
     %li
-      %a{href: "/board/%{board['Id']}"} 
+      %a{href: "/board/#{board['Id']}"} 
         =board["Title"]

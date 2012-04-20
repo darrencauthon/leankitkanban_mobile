@@ -35,6 +35,12 @@ get '/dashboard' do
   haml :dashboard
 end
 
+get '/board/:id' do
+  @board = LeanKitKanban::Board.find(params[:id])[0]
+  @lanes = @board["Lanes"]
+  haml :board
+end
+
 def attempt_to_login
   LeanKitKanban::Config.account  = @account 
   LeanKitKanban::Config.email    = @email

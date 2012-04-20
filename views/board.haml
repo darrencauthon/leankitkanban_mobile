@@ -1,0 +1,15 @@
+%div.toolbar
+  %h1.pageTitle Board
+  %a{id: "backButton", class: "button", href: "#"}
+%ul{id: 'board', title: @board["Title"], selected: "true"}
+  %li{class: "group"} Lanes
+  - @lanes.each do |lane|
+    %li
+      %a{href: "#lane_#{lane["Id"]}"} 
+        =lane["Title"]
+- @lanes.each do |lane|
+  %ul{id: "lane_#{lane["Id"]}", title: lane["Title"] }
+    - lane["Cards"].each do |card|
+      %li
+        %a{href: "#card_#{card["Id"]}"} 
+          =card["Title"]
