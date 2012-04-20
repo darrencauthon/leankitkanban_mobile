@@ -2,6 +2,14 @@ require 'sinatra'
 require 'haml'
 require 'leankitkanban'
 
+enable :sessions
+
+before do
+  LeanKitKanban::Config.account  = session[:account] 
+  LeanKitKanban::Config.email    = session[:email] 
+  LeanKitKanban::Config.password = session[:password]
+end
+
 get '/' do
   haml :login
 end
@@ -13,11 +21,17 @@ post '/' do
 
   if attempt_to_login
     set_the_cookie
+    redirect :dashboard
   else
     @error = 'Could not login'
+    haml :login
   end
 
-  haml :login
+end
+
+get '/dashboard' do
+  @boards = LeanKitKanban::Board.all
+  haml :dashboard
 end
 
 def attempt_to_login
@@ -33,5 +47,7 @@ def attempt_to_login
 end
 
 def set_the_cookie
-  raise 'thanks'
+  session[:account]  = @account 
+  session[:email]    = @email 
+  session[:password] = @password
 end
