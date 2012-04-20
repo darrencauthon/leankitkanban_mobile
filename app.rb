@@ -30,7 +30,7 @@ post '/' do
 end
 
 get '/dashboard' do
-  @boards = LeanKitKanban::Board.all
+  @boards = LeanKitKanban::Board.all[0]
   haml :dashboard
 end
 

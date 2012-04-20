@@ -1,3 +1,9 @@
 %div.toolbar
   %h1.pageTitle Dashboard
   %a{id: "backButton", class: "button", href: "#"}
+%ul{id: 'dashboard', title: 'Dashboard', selected: "true"}
+  %li{class: "group"} Boards
+  - @boards.each do |board|
+    %li
+      %a{href: "/board/%{board['Id']}"} 
+        =board["Title"]
