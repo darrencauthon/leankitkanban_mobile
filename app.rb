@@ -32,13 +32,14 @@ end
 get '/dashboard' do
   @boards = LeanKitKanban::Board.all[0]
   @boards.sort!{|a,b| a["Title"].to_s.downcase <=> b["Title"].to_s.downcase}
+  @boards = [@boards[0], @boards[1], @boards[2]]
   haml :dashboard
 end
 
 get '/board/:id' do
   @board = LeanKitKanban::Board.find(params[:id])[0]
   @lanes = @board["Lanes"]
-  haml :board
+  haml :board, {:layout => false}
 end
 
 def attempt_to_login
