@@ -1,0 +1,16 @@
+%div.toolbar
+  %h1.pageTitle
+  %a{id: "backButton", class: "button", href: "#"}
+%div{id: :index, title: "Index", selected: "true" }
+  %form{id: "login", title: "Login", class: "panel", name: "login", action: "", method: "post"}
+    %fieldset
+      %div{class: "row"}
+        %label Account
+        %input{type: "text", value: @account, name: "account", placeholder: "Account"}
+      %div{class: "row"}
+        %label Email
+        %input{type: "text", value: @email, name: "email", placeholder: "Email"}
+      %div{class: "row"}
+        %label Password
+        %input{type: "password", name: "password", placeholder: "Password"}
+    %a{class: "whiteButton", href: "javascript:login.submit()"} Login
