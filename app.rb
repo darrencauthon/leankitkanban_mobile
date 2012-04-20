@@ -8,5 +8,6 @@ end
 post '/' do
   @account = params[:account]
   @email = params[:email]
+  @error = "Uh oh!"
   haml :login
 end
