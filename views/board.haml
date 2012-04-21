@@ -6,11 +6,17 @@
       Back
   %div{"data-role" => "header", "data-theme" => "a"}
   %div{"data-role" => "content"}
-    - @lanes.each do |lane|
-      %ul{"data-divider-theme" => "b", "data-inset" => "true", "data-role" => "listview"}
-        %li{"data-role" => "list-divider", :role => "heading"}
-          = lane["Title"]
-        - lane["Cards"].each do |card|
-          %li{"data-theme" => "c"}
-            %a{"data-transition" => "slide", :href => "#page7"}
-              = card["Title"]
+    %div{"data-content-theme" => "", "data-role" => "collapsible-set", "data-theme" => ""}
+      - @lanes.each do |lane|
+        %div{"data-collapsed" => "true", "data-role" => "collapsible"}
+          %h3
+            = lane["Title"] 
+          %ul{"data-divider-theme" => "b", "data-inset" => "true", "data-role" => "listview"}
+            - if lane["Cards"].nil? || lane["Cards"].empty?
+              %li{"data-theme" => "c"}
+                %a{"data-transition" => "slide", :href => "#"}
+                  No cards
+            - lane["Cards"].each do |card|
+              %li{"data-theme" => "c"}
+                %a{"data-transition" => "slide", :href => "#"}
+                  = card["Title"]
