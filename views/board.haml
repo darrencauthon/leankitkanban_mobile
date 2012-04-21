@@ -1,13 +1,16 @@
-%ul{id: 'board', title: @board["Title"], selected: "true"}
-  %li{class: "group"} Lanes
-  - @lanes.each do |lane|
-    %li
-      %a{href: "#lane_#{lane["Id"]}"} 
-        =lane["Title"]
-- @lanes.each do |lane|
-  %div{id: "lane_#{lane["Id"]}", title: lane["Title"] }
-    %ul
-      - lane["Cards"].each do |card|
-        %li
-          %a{href: "#card_#{card["Id"]}"} 
-            =card["Title"]
+#page5{"data-role" => "page", "data-theme" => "b"}
+  %div{"data-role" => "header", "data-theme" => "b"}
+    %h3
+      Lean Kit Kanban
+    %a{"data-icon" => "arrow-l", "data-iconpos" => "left", "data-role" => "button", "data-transition" => "fade", :href => "/dashboard"}
+      Back
+  %div{"data-role" => "header", "data-theme" => "a"}
+  %div{"data-role" => "content"}
+    - @lanes.each do |lane|
+      %ul{"data-divider-theme" => "b", "data-inset" => "true", "data-role" => "listview"}
+        %li{"data-role" => "list-divider", :role => "heading"}
+          = lane["Title"]
+        - lane["Cards"].each do |card|
+          %li{"data-theme" => "c"}
+            %a{"data-transition" => "slide", :href => "#page7"}
+              = card["Title"]

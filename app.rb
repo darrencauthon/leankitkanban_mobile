@@ -39,7 +39,7 @@ end
 get '/board/:id' do
   @board = LeanKitKanban::Board.find(params[:id])[0]
   @lanes = @board["Lanes"]
-  haml :board, {:layout => false}
+  haml :board
 end
 
 def attempt_to_login
