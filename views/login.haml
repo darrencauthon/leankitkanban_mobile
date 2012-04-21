@@ -1,21 +1,21 @@
-%div.toolbar
-  %h1.pageTitle Login
-  %a{id: "backButton", class: "button", href: "#"}
-%div{id: :index, title: "Index", selected: "true" }
-  %form{id: "login", title: "Login", class: "panel", name: "login", action: "", method: "post"}
-    -if @error
-      %fieldset
-        %div{class: "row error"}
-          %p
-            =@error
-    %fieldset
-      %div{class: "row"}
-        %label Account
-        %input{type: "text", value: @account, name: "account", placeholder: ""}
-      %div{class: "row"}
-        %label Email
-        %input{type: "text", value: @email, name: "email", placeholder: ""}
-      %div{class: "row"}
-        %label Password
-        %input{type: "password", name: "password", placeholder: ""}
-    %a{class: "whiteButton", href: "javascript:login.submit()"} Go
+%div{ "data-role" => "page", "data-theme" => "b", :id => "page1" }
+  %div{ "data-theme" => "b", "data-role" => "header" }
+    %h3 Lean Kit Kanban
+  %div{ "data-theme" => "a", "data-role" => "header" }
+  %div{"data-role" => "content" }
+    %form{ id: "login", name: "login", action: "", method: "post" }
+      %div{ "data-role" => "fieldcontain" }
+        %fieldset{ "data-role" => "controlgroup" }
+          %label{ for: "account" }
+          %input{ id: "account", name: "account", placeholder: "your account", value: @account, type: "text" }
+      %div{ "data-role" => "fieldcontain" }
+        %fieldset{ "data-role" => "controlgroup" }
+          %label{ for: "email" }
+          %input{ id: "email", name: "email", placeholder: "your email", value: @email, type: "text" }
+      %div{ "data-role" => "fieldcontain" }
+        %fieldset{ "data-role" => "controlgroup" }
+          %label{ for: "password" }
+          %input{ id: "password", name: "password", placeholder: "your password", value: "", type: "password" }
+  %a{ id: "login_button", "data-role" => "button", "data-transition" => "slide", :href => "#" }
+    Login
+
