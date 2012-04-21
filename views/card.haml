@@ -1,0 +1,43 @@
+#page7{"data-role" => "page", "data-theme" => "b"}
+  %div{"data-role" => "header", "data-theme" => "b"}
+    %h3
+      Lean Kit Kanban
+    %a{"data-icon" => "arrow-l", "data-iconpos" => "left", "data-role" => "button", "data-theme" => "b", "data-transition" => "fade", :href => "/board/#{@board_id}"}
+      Back
+  %div{"data-role" => "content"}
+    %div{"data-content-theme" => "b", "data-role" => "collapsible-set", "data-theme" => ""}
+      %div{"data-collapsed" => "false", "data-role" => "collapsible"}
+        %h3
+          Section #1
+        .ui-grid-a
+          .ui-block-a
+            %div
+              %b
+                Title
+          .ui-block-b
+            %div
+              %b
+                = @card["Title"]
+          .ui-block-a
+            %div
+              %b
+                Type
+          .ui-block-b
+            %div
+              %b
+                = @card["TypeName"]
+          .ui-block-a
+            %div
+              %b
+                Priority
+          .ui-block-b
+            %div
+              %b
+                = @card["PriorityText"]
+        %div{"data-content-theme" => "", "data-role" => "collapsible-set", "data-theme" => ""}
+          %div{"data-collapsed" => "false", "data-role" => "collapsible"}
+            %h3
+              Description 
+            %div
+              %b
+                = @card["Description"]

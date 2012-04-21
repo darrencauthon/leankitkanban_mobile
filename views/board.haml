@@ -18,5 +18,5 @@
                   No cards
             - lane["Cards"].each do |card|
               %li{"data-theme" => "c"}
-                %a{"data-transition" => "slide", :href => "#"}
+                %a{"data-transition" => "slide", :href => "/board/#{@board["Id"]}/card/#{card["Id"]}"}
                   = card["Title"]
