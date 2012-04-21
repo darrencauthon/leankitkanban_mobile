@@ -4,6 +4,9 @@
   %div{ "data-theme" => "a", "data-role" => "header" }
   %div{"data-role" => "content" }
     %form{ id: "login", name: "login", action: "", method: "post" }
+      -if @error
+        .error
+          = @error
       %div{ "data-role" => "fieldcontain" }
         %fieldset{ "data-role" => "controlgroup" }
           %label{ for: "account" }
