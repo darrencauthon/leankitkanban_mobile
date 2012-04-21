@@ -1,9 +1,14 @@
-%div.toolbar
-  %h1.pageTitle Dashboard
-  %a{id: "backButton", class: "button", href: "#"}
-%ul{id: 'dashboard', title: 'Dashboard', selected: "true"}
-  %li{class: "group"} Boards
-  - @boards.each do |board|
-    %li
-      %a{href: "/board/#{board['Id']}"} 
-        =board["Title"]
+#page4{"data-role" => "page", "data-theme" => "b"}
+  %div{"data-role" => "header", "data-theme" => "b"}
+    %h3
+      Lean Kit Kanban 
+    %a{"data-icon" => "arrow-l", "data-iconpos" => "left", "data-role" => "button", "data-transition" => "fade", :href => "#page1"}
+      Back
+  %div{"data-role" => "content"}
+    %ul{"data-divider-theme" => "b", "data-inset" => "true", "data-role" => "listview"}
+      %li{"data-role" => "list-divider", :role => "heading"}
+        Boards
+      - @boards.each do |board|
+        %li{"data-theme" => "c"}
+          %a{"data-transition" => "slide", :href => "/board/#{board['Id']}"}
+            = board["Title"] 
