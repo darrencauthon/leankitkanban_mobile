@@ -8,6 +8,10 @@ before do
   setup_leankit_api_access_with_values_from session
 end
 
+before do
+  redirect '/' if request.path_info != '/' && !can_access_the_api_with_the_current_config
+end
+
 get '/' do
   redirect '/dashboard' if can_access_the_api_with_the_current_config
   haml :login
