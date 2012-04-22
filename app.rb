@@ -4,10 +4,10 @@ require 'leankitkanban'
 
 enable :sessions
 
+
 before do
-  LeanKitKanban::Config.account  = session[:account] 
-  LeanKitKanban::Config.email    = session[:email] 
-  LeanKitKanban::Config.password = session[:password]
+  @keys_necessary_for_access = [:account, :email, :password]
+  setup_leankit_api_access session
 end
 
 get '/' do
@@ -15,15 +15,13 @@ get '/' do
 end
 
 post '/' do
-  @account = params[:account]
-  @email = params[:email]
-  @password = params[:password]
-
-  if attempt_to_login
-    set_the_cookie
+  if the_login_was_successful(params)
+    set_the_cookie(params)
     redirect :dashboard
   else
     @error = 'Could not login'
+    @account = params[:account]
+    @email = params[:email]
     haml :login
   end
 
@@ -47,20 +45,28 @@ get '/board/:id' do
   haml :board
 end
 
-def attempt_to_login
-  LeanKitKanban::Config.account  = @account 
-  LeanKitKanban::Config.email    = @email
-  LeanKitKanban::Config.password = @password 
+def the_login_was_successful(params)
+  setup_leankit_api_access params
+  can_access_the_api_with_the_current_config
+end
 
+def setup_leankit_api_access(values)
+  @keys_necessary_for_access.each do |key|
+    LeanKitKanban::Config.send("#{key}=".to_sym, values[key])
+  end
+end
+
+def can_access_the_api_with_the_current_config
   begin
     LeanKitKanban::Board.all
+    true
   rescue
     false
   end
 end
 
-def set_the_cookie
-  session[:account]  = @account 
-  session[:email]    = @email 
-  session[:password] = @password
+def set_the_cookie(values)
+  @keys_necessary_for_access.each do |key|
+    session[key] = values[key]
+  end
 end
