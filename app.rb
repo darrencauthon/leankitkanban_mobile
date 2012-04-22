@@ -9,6 +9,7 @@ before do
 end
 
 get '/' do
+  redirect '/dashboard' if can_access_the_api_with_the_current_config
   haml :login
 end
 
@@ -22,6 +23,11 @@ post '/' do
     @email = params[:email]
     haml :login
   end
+end
+
+get '/logoff' do
+  session.clear
+  redirect '/'
 end
 
 get '/dashboard' do
