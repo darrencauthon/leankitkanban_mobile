@@ -4,10 +4,8 @@ require 'leankitkanban'
 
 enable :sessions
 
-
 before do
-  @keys_necessary_for_access = [:account, :email, :password]
-  setup_leankit_api_access session
+  setup_leankit_api_access_with_values_from session
 end
 
 get '/' do
@@ -46,12 +44,12 @@ get '/board/:id' do
 end
 
 def the_login_was_successful(params)
-  setup_leankit_api_access params
+  setup_leankit_api_access_with_values_from params
   can_access_the_api_with_the_current_config
 end
 
-def setup_leankit_api_access(values)
-  @keys_necessary_for_access.each do |key|
+def setup_leankit_api_access_with_values_from(values)
+  keys_necessary_for_access.each do |key|
     LeanKitKanban::Config.send("#{key}=".to_sym, values[key])
   end
 end
@@ -66,7 +64,11 @@ def can_access_the_api_with_the_current_config
 end
 
 def set_the_cookie(values)
-  @keys_necessary_for_access.each do |key|
+  keys_necessary_for_access.each do |key|
     session[key] = values[key]
   end
+end
+
+def keys_necessary_for_access
+  [:account, :email, :password]
 end
