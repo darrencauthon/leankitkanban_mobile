@@ -4,3 +4,9 @@
   font-weight: bold;
   font-style: italic;
 }
+
+.no_affiliation{
+  font-style: italic;
+  font-size: 8pt;
+  text-align: center;
+}
