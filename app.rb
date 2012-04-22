@@ -22,7 +22,6 @@ post '/' do
     @email = params[:email]
     haml :login
   end
-
 end
 
 get '/dashboard' do
