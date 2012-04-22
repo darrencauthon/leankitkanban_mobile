@@ -33,7 +33,7 @@ end
 
 get '/dashboard' do
   @boards = LeanKitKanban::Board.all[0]
-  @boards.sort!{|a,b| a["Title"].to_s.downcase <=> b["Title"].to_s.downcase}
+  @boards.sort_by!{ |b| b["Title"].to_s.downcase }
   haml :dashboard
 end
 
