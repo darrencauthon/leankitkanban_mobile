@@ -6,11 +6,11 @@ enable :sessions
 
 before do
   setup_leankit_api_access_with_values_from session
-  redirect '/' if request.path_info != '/' && !can_access_the_api_with_the_current_config
+  redirect '/' if request.path_info != '/' && !can_access_the_api_with_the_current_config?
 end
 
 get '/' do
-  redirect '/dashboard' if can_access_the_api_with_the_current_config
+  redirect '/dashboard' if can_access_the_api_with_the_current_config?
   haml :login
 end
 
@@ -51,7 +51,7 @@ end
 
 def the_login_was_successful(params)
   setup_leankit_api_access_with_values_from params
-  can_access_the_api_with_the_current_config
+  can_access_the_api_with_the_current_config?
 end
 
 def setup_leankit_api_access_with_values_from(values)
@@ -60,7 +60,7 @@ def setup_leankit_api_access_with_values_from(values)
   end
 end
 
-def can_access_the_api_with_the_current_config
+def can_access_the_api_with_the_current_config?
   begin
     LeanKitKanban::Board.all
     true
