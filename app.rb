@@ -6,11 +6,11 @@ enable :sessions
 
 before do
   setup_leankit_api_access_with_values_from session
-  redirect '/' if request.path_info != '/' && !can_access_the_api_with_the_current_config?
+  redirect '/' if on_a_secure_page_but_not_logged_in?
 end
 
 get '/' do
-  redirect '/dashboard' if can_access_the_api_with_the_current_config?
+  redirect '/dashboard' if logged_in?
   haml :login
 end
 
@@ -51,7 +51,7 @@ end
 
 def the_login_was_successful(params)
   setup_leankit_api_access_with_values_from params
-  can_access_the_api_with_the_current_config?
+  logged_in?
 end
 
 def setup_leankit_api_access_with_values_from(values)
@@ -60,13 +60,18 @@ def setup_leankit_api_access_with_values_from(values)
   end
 end
 
-def can_access_the_api_with_the_current_config?
+def logged_in?
   begin
     LeanKitKanban::Board.all
     true
   rescue
     false
   end
+end
+
+def on_a_secure_page_but_not_logged_in?
+  return false if request.path_info == '/'
+  !logged_in?
 end
 
 def set_the_cookie(values)
